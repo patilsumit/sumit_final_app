@@ -13,7 +13,7 @@ function validFiledCheck(postBody, todoSchema) {
     });
 
     if (!message) {
-        return  false;
+        return false;
     }
     return {message}
 }
@@ -24,20 +24,19 @@ let generate_number_random = () => {
 };
 
 
-function positive_number(limit, skip) {
+function positive_number(limit, skip, sort) {
     let message = '';
     let numRegx = new RegExp('^\d*[0-9]\\d*$');
+    let sortRegx = new RegExp('^[-1-1 ]+$');
 
     if (!numRegx.test(limit)) {
         message = 'Limit Type Invalid';
     } else if (!numRegx.test(skip)) {
         message = 'Skip Type Invalid';
+    } else if (!sortRegx.test(sort)) {
+        message = 'Sort Type Invalid'
     } else {
         return false
-    }
-
-    if (message === '') {
-        return false;
     }
 
     return {message};

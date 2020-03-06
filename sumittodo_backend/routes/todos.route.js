@@ -58,7 +58,7 @@ router.post('/todos', validate, (req, res) => {
 
 router.get('/todos', validate, (req, res) => {
 
-    let queryCheck = positive_number(req.query.limit, req.query.skip);
+    let queryCheck = positive_number(req.query.limit, req.query.skip, req.query.sort);
     if (queryCheck) {
         return handleError(400, queryCheck.message, res);
     }
@@ -73,8 +73,8 @@ router.get('/todos', validate, (req, res) => {
         todos.find({
             userId: req.user._id
         })
-            .skip(pageNo)
             .limit(limitSize)
+            .skip(pageNo)
             .sort([['todoTask', sort]])
             .exec((err, data) => {
                 if (err) {
@@ -94,12 +94,19 @@ router.get('/todos', validate, (req, res) => {
 
 router.get('/todos/search', validate, (req, res) => {
 
-    let queryCheck = positive_number(req.query.limit, req.query.skip);
+    let todoTask = req.query.todotask;
+    let queryCheck = positive_number(req.query.limit, req.query.skip, req.query.sort);
+    let taskType = new RegExp('^[a-zA-Z\\-_]*$');
+    let errorMessage = '';
     if (queryCheck) {
-        return handleError(400, queryCheck.message, res);
+        errorMessage = queryCheck.message;
+    } else if (!taskType.test(todoTask)) {
+        errorMessage = 'todoTask only string are allow';
     }
 
-    let todoTask = req.query.todotask;
+    if (errorMessage) {
+        return handleError(400, errorMessage, res)
+    }
 
     let skip = parseInt(req.query.skip);
 

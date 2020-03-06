@@ -6,7 +6,7 @@ const {encrypt, compare} = require('../utils/crypto/hash.util');
 const {sign, decode} = require('../utils/crypto/jwt.util');
 const nodeMailer = require('nodemailer');
 const {userRequiredFiled, userCheckAttribute} = require('../validators/userValidators');
-const {validFiledCheck, generate_number_random} = require('../validators/common.validators');
+const {validFiledCheck} = require('../validators/common.validators');
 
 let router = express.Router();
 let userSchemaDetails = users.schema.tree;
@@ -141,8 +141,8 @@ router.post('/users/forget-password', (req, res) => {
         errorMessage = 'User Email is required';
     } else if (checkValidFiled) {
         errorMessage = checkValidFiled.message;
-    }else if(checkAttribute){
-        errorMessage = checkAttribute.message
+    } else if (checkAttribute) {
+        errorMessage = checkAttribute.message;
     }
 
     if (errorMessage) {
@@ -174,7 +174,6 @@ router.post('/users/forget-password', (req, res) => {
 
                 service: 'gmail',
                 auth: {
-
                     user: process.env.EMAIL,
                     pass: process.env.PASSWORD
                 }
@@ -214,12 +213,11 @@ router.post('/users/reset-password', (req, res) => {
     let {userPassword, token} = req.body;
     let tokenDecode = decode(token);
 
-    if (userPassword === '') {
-        return handleError(400, 'userPassword is required', res)
+    if (userPassword === '' || userPassword === undefined) {
+        return handleError(400, 'userPassword is required', res);
     }
 
     tokenDecode.then((result) => {
-
         let decodeId = result.user_id;
         users.findOneAndUpdate({
             _id: decodeId
@@ -234,6 +232,8 @@ router.post('/users/reset-password', (req, res) => {
             }
             return response(200, 'Password Update Successfully', res);
         })
+    }, error => {
+        return handleError(400, error, res)
     });
 
 

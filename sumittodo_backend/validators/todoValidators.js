@@ -21,7 +21,7 @@ function checkRequiredFilled(postBody) {
 
 
 function todoCheckAttribute(postBody) {
-
+    console.log(postBody)
     let validString = new RegExp('^[a-zA-Z\\-_]*$');
     let validDate = new RegExp('^(\\d{4})(-)(((0)[0-9])|((1)[0-2]))(-)([0-2][0-9]|(3)[0-1])$');
     let validTime = new RegExp('^([01]?[0-9]|2[0-3]):[0-5][0-9]$');
