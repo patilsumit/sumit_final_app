@@ -9,21 +9,21 @@
     <div class="collapse navbar-collapse" id="navbarsExample10">
       <ul class="navbar-nav ml-auto">
 
-        <li  class="nav-item" *ngIf="apiServices.isLoggedIn()">
-          <a class="btn btn-outline-primary text-dark mr-2" [routerLink]="['/users/home']">home</a>
+        <li class="nav-item" *ngIf="apiServices.isLoggedIn()">
+          <a class="btn btn-outline-primary text-dark mr-2" routerLink="/users/home">home</a>
         </li>
-        <li  class="nav-item" *ngIf="!apiServices.isLoggedIn()">
-          <a class="btn btn-outline-primary text-dark mr-2" [routerLink]="['/users/signup']">signup</a>
+        <li class="nav-item" *ngIf="!apiServices.isLoggedIn()">
+          <a class="btn btn-outline-primary text-dark mr-2" routerLink="/users/signup">signup</a>
         </li>
-        <li  class="nav-item" *ngIf="!apiServices.isLoggedIn()">
-          <a class="btn btn-outline-primary text-dark mr-2" [routerLink]="['/users/signin']">signIn</a>
+        <li class="nav-item" *ngIf="!apiServices.isLoggedIn()">
+          <a class="btn btn-outline-primary text-dark mr-2" routerLink="/users/signin">signIn</a>
         </li>
 
-<!--        <li  class="nav-item ml-auto" *ngIf="apiServices.isLoggedIn()">-->
-<!--          <a class="btn btn-outline-warning text-dark mr-2">{{ details?.userName }}</a>-->
-<!--        </li>-->
-        <li  class="nav-item ml-auto" *ngIf="apiServices.isLoggedIn()">
-          <a class="btn bg-dark text-white"  routerLink="/" (click)="apiServices.logout()">Logout</a>
+        <li class="nav-item ml-auto" *ngIf="apiServices.isLoggedIn()">
+          <a class="btn btn-outline-warning text-dark mr-2"> {{apiServices.userName}} </a>
+        </li>
+        <li class="nav-item ml-auto" *ngIf="apiServices.isLoggedIn()">
+          <a class="btn bg-dark text-white" routerLink="/" (click)="apiServices.logout()">Logout</a>
         </li>
       </ul>
     </div>

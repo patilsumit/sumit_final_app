@@ -50,7 +50,7 @@ export class TodoComponent implements OnInit {
   }
 
 
-  addTodo(todoData) {
+  addTodo(todoData: NgForm) {
 
     if (!this.id) {
       this.apiServices.createNewTodo(this.todo).subscribe((response: any) => {

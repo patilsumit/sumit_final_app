@@ -3,8 +3,7 @@ const {todos} = require('../models/todo.model');
 const {response, handleError, MongooseErrorHandle} = require('../utils/response.util');
 const {validate} = require('../middleware/auth');
 const {checkTodoStatus, checkRequiredFilled, todoCheckAttribute} = require('../validators/todoValidators');
-const {validFiledCheck, positive_number, generate_number_random} = require('../validators/common.validators');
-
+const {validFiledCheck, positive_number} = require('../validators/common.validators');
 
 let router = express.Router();
 let todoSchema = todos.schema.tree;
@@ -30,10 +29,10 @@ router.post('/todos', validate, (req, res) => {
         errorMessage = checkStatus.message;
     }
 
+
     if (errorMessage) {
         return handleError(400, errorMessage, res);
     }
-
 
     let new_todo = new todos({
         _id: `${Date.now() + ((Math.random() * 100000).toFixed())}`,
@@ -55,6 +54,7 @@ router.post('/todos', validate, (req, res) => {
     })
 
 });
+
 
 router.get('/todos', validate, (req, res) => {
 
@@ -99,13 +99,15 @@ router.get('/todos/search', validate, (req, res) => {
     let taskType = new RegExp('^[a-zA-Z\\-_]*$');
     let errorMessage = '';
     if (queryCheck) {
-        errorMessage = queryCheck.message;
+        errorMessage = queryCheck.message
+    } else if (todoTask === '') {
+        errorMessage = 'todoTask is Required';
     } else if (!taskType.test(todoTask)) {
         errorMessage = 'todoTask only string are allow';
     }
 
     if (errorMessage) {
-        return handleError(400, errorMessage, res)
+        return handleError(400, errorMessage, res);
     }
 
     let skip = parseInt(req.query.skip);

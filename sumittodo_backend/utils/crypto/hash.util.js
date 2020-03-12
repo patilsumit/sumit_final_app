@@ -28,6 +28,7 @@ function compare(p_hash, salt, password) {
     let HmacMethod = 'sha512';
 
     if (!password) {
+        // throw new Error('Password cannot be blank or null');
         return  false;
     }
 
@@ -38,6 +39,7 @@ function compare(p_hash, salt, password) {
         return true;
     else
         return false;
+
 }
 
 module.exports = {encrypt, compare};

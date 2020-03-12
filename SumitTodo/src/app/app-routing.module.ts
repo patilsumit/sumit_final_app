@@ -11,7 +11,8 @@ import {TodoComponent} from './components/todo/todo.component';
 import {AuthguardService} from './services/authguard.service';
 
 
-const routes: Routes = [{path: '', redirectTo: 'users/signin', pathMatch: 'full'},
+const routes: Routes = [
+  {path: '', redirectTo: 'users/signin', pathMatch: 'full'},
   {path: 'users/signin', component: SigninComponent},
   {path: 'users/signup', component: SignupComponent},
   {path: 'users/forget-password', component: ForgetpasswordComponent},

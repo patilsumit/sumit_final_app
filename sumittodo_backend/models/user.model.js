@@ -6,7 +6,6 @@ const shortid = require('shortid');
 const userSchema = new Schema({
     _id: {
         type: String,
-        // default: shortid.generate,
         required: true
     },
     userName: {

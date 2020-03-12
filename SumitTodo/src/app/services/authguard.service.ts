@@ -12,11 +12,9 @@ export class AuthguardService implements CanActivate {
   }
 
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.apiServices.isLoggedIn()) {
-      this.route.navigateByUrl('/login');
+      this.route.navigateByUrl('/users/signin');
       this.apiServices.logout();
       return false;
     }

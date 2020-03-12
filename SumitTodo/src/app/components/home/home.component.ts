@@ -3,7 +3,6 @@ import {BackendApisService, UserDetails} from '../../services/backend-apis.servi
 import {Todo} from '../../model/Todo';
 
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +10,6 @@ import {Todo} from '../../model/Todo';
 })
 export class HomeComponent implements OnInit {
 
-  details: UserDetails;
   todo: Todo = {
     todoTask: ''
   };
@@ -29,18 +27,11 @@ export class HomeComponent implements OnInit {
   constructor(private apiServices: BackendApisService) {
   }
 
+
   ngOnInit() {
 
-    this.apiServices.userProfile().subscribe(
-      (user: any) => {
-        this.details = user.response;
-      },
-      err => {
-        console.error(err);
-      }
-    );
-
     this.getAllTodo();
+
   }
 
 
@@ -81,7 +72,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-
   getSearchTask() {
     if (this.todo.todoTask.length > 0) {
       this.apiServices.getSearchTask(this.todo.todoTask, this.pageNo, this.searchSorting).subscribe((response: any) => {
@@ -100,7 +90,6 @@ export class HomeComponent implements OnInit {
       }, error => {
         throw  error;
       });
-
     } else {
       if (this.todo.todoTask.length === 0) {
         this.todos = this.searchTodo;
@@ -108,9 +97,7 @@ export class HomeComponent implements OnInit {
         this.eSearch = false;
         this.dataLoading = false;
       }
-
     }
-
   }
 
 

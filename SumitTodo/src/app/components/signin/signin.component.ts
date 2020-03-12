@@ -29,6 +29,7 @@ export class SigninComponent implements OnInit {
       (res: any) => {
         this.showSucessMessage = true;
         this.apiServices.saveToken(res.response.token);
+        this.apiServices.saveUserName(res.response.userName);
         this.route.navigateByUrl('/users/home');
       },
       err => {

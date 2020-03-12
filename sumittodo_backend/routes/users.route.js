@@ -94,7 +94,7 @@ router.post('/users/login', (req, res) => {
         }
 
         if (!compare(data.userPassword.hash, data.userPassword.salt, userPassword)) {
-            return response(403, 'User Password is invalid', res)
+            return response(403, 'userPassword is invalid', res)
         }
 
 
@@ -202,9 +202,7 @@ router.post('/users/forget-password', (req, res) => {
 
             return response(200, response_data, res)
         });
-
     });
-
 });
 
 
@@ -233,7 +231,7 @@ router.post('/users/reset-password', (req, res) => {
             return response(200, 'Password Update Successfully', res);
         })
     }, error => {
-        return handleError(400, error, res)
+        return handleError(400, error, res);
     });
 
 

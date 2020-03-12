@@ -8,26 +8,16 @@ import {BackendApisService, UserDetails} from '../../services/backend-apis.servi
 })
 export class NavigationComponent implements OnInit {
 
-  details: UserDetails;
+  userName: any;
 
   constructor(public apiServices: BackendApisService) {
+    this.userName = this.apiServices.getUserName();
   }
 
   ngOnInit() {
+
   }
 
-  //
-  // getProfile() {
-  //   this.apiServices.userProfile().subscribe(
-  //     (user: any) => {
-  //       this.details = user.response;
-  //       console.log(this.details.userName);
-  //     },
-  //     err => {
-  //       console.error(err);
-  //     }
-  //   );
-  // }
 }
 
 
